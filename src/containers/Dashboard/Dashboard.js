@@ -20,7 +20,7 @@ function FinalDashboard(props) {
     useEffect(() => {
         axios({
             method: "POST",
-            url: "/raised-incidents",
+            url: "https://glw8abt2pg.execute-api.eu-central-1.amazonaws.com/backend/raised-incidents",
             headers: {
                 Authorization: 'Bearer ' + token
             },

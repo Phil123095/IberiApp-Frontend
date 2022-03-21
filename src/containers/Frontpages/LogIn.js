@@ -33,7 +33,7 @@ function LogIn(props) {
         //Prevent page reload
         axios({
             method: "POST",
-            url: "/authenticate-user",
+            url: "https://glw8abt2pg.execute-api.eu-central-1.amazonaws.com/backend/authenticate-user",
             data: {
                 email: loginForm.email,
                 password: loginForm.password
