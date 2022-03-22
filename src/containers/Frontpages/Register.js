@@ -55,7 +55,7 @@ function RegisterUser() {
     function RegisterMe() {
         axios({
             method: "POST",
-            url: "https://o31ujgx7xj.execute-api.eu-central-1.amazonaws.com/dev/backend/new-user",
+            url: "https://bd4cwt2sc9.execute-api.eu-central-1.amazonaws.com/dev/backend/new-user",
             data: {
                 email: registerForm.email,
                 password: registerForm.password
