@@ -59,7 +59,8 @@ function RegisterUser() {
             data: {
                 email: registerForm.email,
                 password: registerForm.password
-               }
+               },
+            proxy: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend"
         })
         .then(response => response.data.message)
         .then(response => {

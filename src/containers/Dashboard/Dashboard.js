@@ -28,7 +28,8 @@ function FinalDashboard(props) {
                 start_date: '2021-01-01',
                 end_date: '2021-04-01',
                 customer_group: ['IBERIA']
-            }
+            },
+            proxy: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend"
         })
         .then(response => {
             const result = response.data
