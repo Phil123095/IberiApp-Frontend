@@ -20,7 +20,7 @@ function FinalDashboard(props) {
     useEffect(() => {
         axios({
             method: "POST",
-            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/raised-incidents",
+            url: "/raised-incidents",
             headers: {
                 Authorization: 'Bearer ' + token
             },
