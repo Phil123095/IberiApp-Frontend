@@ -51,7 +51,7 @@ function FinalDashboard(props) {
         setIsLoading(true)
         axios({
             method: "POST",
-            url: "/raised-incidents",
+            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/raised-incidents",
             headers: {
                 Authorization: 'Bearer ' + token
             },
