@@ -33,12 +33,11 @@ function LogIn(props) {
         //Prevent page reload
         axios({
             method: "POST",
-            url: "/authenticate-user",
+            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/authenticate-user",
             data: {
                 email: loginForm.email,
                 password: loginForm.password
-               },
-            proxy: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend"
+               }
         })
         .then(response => response.data)
         .then(response => verify(response))

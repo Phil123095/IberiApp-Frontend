@@ -55,12 +55,11 @@ function RegisterUser() {
     function RegisterMe() {
         axios({
             method: "POST",
-            url: "/new-user",
+            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/new-user",
             data: {
                 email: registerForm.email,
                 password: registerForm.password
-               },
-            proxy: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend"
+               }
         })
         .then(response => response.data.message)
         .then(response => {
