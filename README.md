@@ -1,5 +1,8 @@
 # Iberiapp-Frontend
 
+[Website Here](https://master.d3une9mtfnw6tc.amplifyapp.com/) - Please either register using your .ie.edu email, or log in using the test credentials: 
+**test[at]final.com, password: final**
+
 ## General Flow:
   - App.js just holds the skeleton. Routes.js does the heavy lifting (or should I say, routing).
   - Authentication: The backend returns a JWT-Token that enables the frontend to keep a user logged in (and of course to authenticate). Routes are protected based on this.
