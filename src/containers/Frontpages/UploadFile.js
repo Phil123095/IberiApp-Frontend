@@ -3,6 +3,8 @@ import { return_loader } from '../../utils/general_utils';
 
 var AWS = require('aws-sdk/dist/aws-sdk-react-native');
 
+const BucketName = process.env.REACT_APP_BUCKET_NAME;
+const Region = process.env.REACT_APP_REGION;
 
 AWS.config.update({
     accessKeyId: process.env.REACT_APP_ACCESS_ID,
@@ -10,8 +12,8 @@ AWS.config.update({
 })
 
 const myBucket = new AWS.S3({
-    params: { Bucket: process.env.REACT_APP_BUCKET_NAME},
-    region: process.env.REACT_APP_REGION,
+    params: { Bucket: BucketName},
+    region: Region,
 })
 
 function Uploadfile() {
@@ -38,7 +40,7 @@ function Uploadfile() {
 
         const params = {
             Body: file,
-            Bucket: process.env.REACT_APP_BUCKET_NAME,
+            Bucket: BucketName,
             Key: file.name
         };
 
