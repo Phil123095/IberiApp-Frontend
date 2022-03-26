@@ -33,7 +33,7 @@ function BarChartMTTR(props) {
   return (
     <div>
       <header className="px-3 py-2">
-        <h2 className="text-sm font-semibold text-slate-400 uppercase">Mean Time to Resolution for SLAs Met and Not Met</h2>
+        <h2 className="text-sm font-semibold text-slate-400 uppercase">Mean Time to Resolution for SLAs Met and Not Met (in hours)</h2>
       </header>
       {/* Chart built with Chart.js 3 */}
       {/* Change the height attribute to adjust the chart height */}
