@@ -5,7 +5,6 @@ import MTTRBarChart from '../Dashboard Graphs/CHART_BarMTTR.js';
 
 function BarChartMTTR(props) {
     const mttr_data = props.mttr_data
-    console.log(mttr_data)
 
     const chartData = {
         labels: mttr_data.labels,
