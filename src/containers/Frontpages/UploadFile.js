@@ -62,7 +62,7 @@ function Uploadfile() {
             setTextValidation("Sorry, we only accept .xlsx files");
         }
         else if (successUpload === true) {
-            setTextValidation("You will be notified by email shortly when the data has been uploaded to the database")
+            setTextValidation("In a minute or so the data will be available in the dashboard.")
         }
         else {
             setTextValidation("Just make sure it's .xlsx please.")
