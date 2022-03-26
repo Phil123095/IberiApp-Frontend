@@ -15,7 +15,7 @@ function FinalDashboard(props) {
     useEffect(() => {
         axios({
             method: "POST",
-            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/get-dashboard-data",
+            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/get-dashboard-data",
             headers: {
                 Authorization: 'Bearer ' + token
             },
@@ -48,7 +48,7 @@ function FinalDashboard(props) {
         setGranularity(selectedGranularity);
         axios({
             method: "POST",
-            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/get-dashboard-data",
+            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/get-dashboard-data",
             headers: {
                 Authorization: 'Bearer ' + token
             },
