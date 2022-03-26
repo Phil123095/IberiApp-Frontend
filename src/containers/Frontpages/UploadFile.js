@@ -1,0 +1,96 @@
+import React ,{useEffect, useState} from 'react';
+import { return_loader } from '../../utils/general_utils';
+
+var AWS = require('aws-sdk/dist/aws-sdk-react-native');
+
+
+AWS.config.update({
+    accessKeyId: process.env.REACT_APP_ACCESS_ID,
+    secretAccessKey: process.env.REACT_APP_ACCESS_KEY
+})
+
+const myBucket = new AWS.S3({
+    params: { Bucket: process.env.REACT_APP_BUCKET_NAME},
+    region: process.env.REACT_APP_REGION,
+})
+
+function Uploadfile() {
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [correctFormat, setFormatIndicator] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [successUpload, setSuccess] = useState(false);
+    const [disableButton, setDisable] = useState(false);
+    const [textValidation, setTextValidation] = useState("Just make sure it's .xlsx please.");
+
+    const handleFileInput = (e) => {
+        setSelectedFile(e.target.files[0]);
+        
+        const Filename = e.target.files[0].name
+
+        if (Filename.substr(Filename.length - 5) === '.xlsx') {
+            setFormatIndicator(true);
+        }
+        else {setFormatIndicator(false);}
+    }
+
+    const uploadFile = (file) => {
+        setIsLoading(true);
+
+        const params = {
+            Body: file,
+            Bucket: process.env.REACT_APP_BUCKET_NAME,
+            Key: file.name
+        };
+
+        myBucket.putObject(params)
+            .on('httpUploadProgress', (evt) => {
+                if (evt.loaded === evt.total) {
+                    setIsLoading(false);
+                    setSuccess(true);
+                }
+            })
+            .send((err) => {
+                if (err) console.log(err)
+            })
+    }
+
+    useEffect(() => {
+        if (correctFormat === false) {
+            setDisable(true);
+            setTextValidation("Sorry, we only accept .xlsx files");
+        }
+        else if (successUpload === true) {
+            setTextValidation("You will be notified by email shortly when the data has been uploaded to the database")
+        }
+        else {
+            setTextValidation("Just make sure it's .xlsx please.")
+        }
+
+    }, [selectedFile, correctFormat, successUpload])
+    
+
+    return(
+        <div class="flex flex-row bg-slate-100 items-center justify-center">
+            <div class="basis-1/4 h-96 p-9 border-1 border-slate-200 rounded bg-white shadow-sm my-44">
+                <div class="pt-10 pb-2">
+                    <h2 class="font-weight-bold text-xl text-center">{successUpload === true ? "Upload successful!" : "Upload a File"}</h2>
+                    <p class="py-1 text-xs font-weight-light text-center italic">{textValidation}</p>
+                </div>
+                <div class="flex row justify-center align-center">
+                
+                    <input type="file" accept=".xlsx" class="form-control my-4 justify-center align-center rounded-lg border border-solid border-gray-300" onChange={handleFileInput}/>
+                    <button type="submit"
+                            class="w-full text-white bg-blue-500 hover:bg-blue-700 font-bold rounded-lg 
+                                text-lg px-4 py-1.5 inline-flex justify-center items-center" 
+                            onClick={() => uploadFile(selectedFile)}
+                            disabled={disableButton}>
+                        {isLoading === true ? return_loader(): null}
+                        <h2 class="text-lg text-center">{successUpload === true ? "Upload another File" : "Upload File"}</h2>
+                    </button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default Uploadfile;

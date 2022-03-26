@@ -1,33 +1,29 @@
 import {useEffect, useState} from 'react';
-import FilterBar from './Dashboard Elements/FilterBar'
-/*import SummaryWidget from './Dashboard Elements/SummaryWidget_Tbl';*/
+import FilterBar from './FilterBar'
 import axios from 'axios';
-import TotalRaisedTS from './Dashboard Elements/TotalRaisedTS';
-import StackBarPrios from './Dashboard Elements/StackedBar';
-import BarChartMTTR from './Dashboard Elements/BarChartMTTR';
-import BarChartSLAPerc from './Dashboard Elements/BarChartPercSLA';
-import TotalRaisedPerc from './Dashboard Elements/BarTotalRaisedPerc';
-import TotalRaisedDepartmentPerc from './Dashboard Elements/DeptTotalRaisedPercent';
-import TableIncidentsPrio from './Dashboard Elements/Table_Prio_Incidents';
-import StackBarGeneral from './Dashboard Elements/TimeSeriesStack';
+import RootCauseSection from './Dashboard Subsections/CauseGraphs';
+import ExecSummSection from './Dashboard Subsections/Exec_Summ';
+import MttrSlaSection from './Dashboard Subsections/MTTR_SLA';
 
 function FinalDashboard(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [APIdata, setAPIData] = useState(null);
+    const [granularity, setGranularity] = useState('day');
     const token = props.token
     const setToken = props.setToken
 
     useEffect(() => {
         axios({
             method: "POST",
-            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/raised-incidents",
+            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/get-dashboard-data",
             headers: {
                 Authorization: 'Bearer ' + token
             },
             data:{
                 start_date: '2021-01-01',
                 end_date: '2021-04-01',
-                customer_group: ['IBERIA']
+                customer_group: ['IBERIA'],
+                granularity: 'day'
             }
         })
         .then(response => {
@@ -47,18 +43,20 @@ function FinalDashboard(props) {
 
     const getDataFromAPI = (inputs) => {
         console.log(inputs)
-        const {minDate, maxDate, selectedGroup} = inputs
+        const {minDate, maxDate, selectedGroup, selectedGranularity} = inputs
         setIsLoading(true)
+        setGranularity(selectedGranularity);
         axios({
             method: "POST",
-            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/raised-incidents",
+            url: "https://iberiapp-final-try.u0i44l2gjqioo.eu-central-1.cs.amazonlightsail.com/backend/get-dashboard-data",
             headers: {
                 Authorization: 'Bearer ' + token
             },
             data:{
                 start_date: minDate,
                 end_date: maxDate,
-                customer_group: selectedGroup
+                customer_group: selectedGroup,
+                granularity: selectedGranularity
             }
         })
         .then(response => {
@@ -74,40 +72,11 @@ function FinalDashboard(props) {
     function return_loaded() {
         console.log(APIdata);
         return (
-            <div class="h-full m grid grid-cols-12 grid-rows-6 gap-4 px-3">
-                <div class="bg-white p-3 rounded col-span-4 border-slate-200 shadow-sm">
-                    <TotalRaisedPerc summary_data={APIdata.summary_data}/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-8 border-slate-200 shadow-sm">
-                    <StackBarPrios TS_data={APIdata.raised_TS_prio} className="Actual-Graph"/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-6 border-slate-200 shadow-sm">
-                    <BarChartMTTR mttr_data={APIdata.mttr_data}/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-6 border-slate-200 shadow-sm">
-                    <BarChartSLAPerc mttr_data_perc={APIdata.mttr_perc}/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-12 border-slate-200 shadow-sm">
-                    <TotalRaisedTS in_data={APIdata.all_raised_data} className="Actual-Graph"/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-4 border-slate-200 shadow-sm">
-                    <TotalRaisedDepartmentPerc total_raised_dept={APIdata.department_raised_totals} heading={"Incidents Raised by Department"}/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-8 border-slate-200 shadow-sm">
-                    <TableIncidentsPrio total_raised_data={APIdata.department_raised_totals} heading={"Total Incidents Raised by Department"} col_title={"Department Name"}/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-12 border-slate-200 shadow-sm">
-                    <StackBarGeneral TS_data={APIdata.department_raised_TS}/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-4 border-slate-200 shadow-sm">
-                    <TotalRaisedDepartmentPerc total_raised_dept={APIdata.cause_raised_total} heading={"Incidents Raised by Cause"}/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-8 border-slate-200 shadow-sm">
-                    <TableIncidentsPrio total_raised_data={APIdata.cause_raised_total} heading={"Total Incidents Raised by Cause"} col_title={"Incident Cause"}/>
-                </div>
-                <div class="bg-white p-3 rounded col-span-12 border-slate-200 shadow-sm">
-                    <StackBarGeneral TS_data={APIdata.cause_raised_TS}/>
-                </div>
+            <div class="h-full grid grid-cols-12 grid-rows-6 gap-4 px-3">
+                <ExecSummSection granularity={granularity} summary_data={APIdata.summary_data} raised_TS_prio={APIdata.raised_TS_prio}/>
+                <MttrSlaSection mttr_data={APIdata.mttr_data} mttr_data_perc={APIdata.mttr_perc}/>
+                <RootCauseSection viz_title={"department"} granularity={granularity} total_raised_data={APIdata.department_raised_total} total_raised_TS={APIdata.department_raised_TS}/>
+                <RootCauseSection viz_title={"cause"} granularity={granularity} total_raised_data={APIdata.cause_raised_total} total_raised_TS={APIdata.cause_raised_TS}/>
             </div>
         );
     }
@@ -115,7 +84,7 @@ function FinalDashboard(props) {
     function returnLoading() {
         return (
             <div class="flex col min-w-full min-h-full justify-center align-center">
-                <div class="my-96 flex flew-col items-center">
+                <div class="my-96 flex flew-col items-center justify-center">
                     <div class="flex flex-row items-center">
                         <svg role="status" class="inline mr-2 w-10 h-10 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>

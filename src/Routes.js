@@ -6,10 +6,11 @@ import RegisterUser from "./containers/Frontpages/Register";
 import HeaderBar from "./containers/Footer_Header/HeaderBar";
 import FooterBar from "./containers/Footer_Header/FooterBar";
 import FinalDashboard from "./containers/Dashboard/Dashboard";
+import Uploadfile from "./containers/Frontpages/UploadFile";
+/*import FinalDashboardTABS from "./containers/Dashboard/DashboardTABS";*/
 
 import useToken from "./utils/tokenManager";
 import NotFound from "./containers/NotFound";
-
 
 
 function Router() {
@@ -31,6 +32,7 @@ function Router() {
         <Route path="/login" element={<LogIn setToken={setToken}/>}/>
         <Route path="/signup" element={<RegisterUser />}/>
         <Route path="/dashboard" element={<FinalDashboard token={token} setToken={setToken}/>}/>
+        <Route path="/file-upload" element={<Uploadfile />}/>
         <Route exact path="/" element={<LandingPage />}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>

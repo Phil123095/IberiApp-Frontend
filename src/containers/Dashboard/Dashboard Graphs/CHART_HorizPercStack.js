@@ -6,11 +6,11 @@ import {
 import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig } from '../../../utils/tw_utils.js';
+import { tailwindConfig } from '../../../utils/general_utils.js';
 
 Chart.register(BarController, BarElement, LinearScale, CategoryScale, Tooltip, Legend);
 
-function TotalIncidentsBar({
+function HorizontalPercStack({
   data,
   total_incidents,
   width,
@@ -113,7 +113,6 @@ function TotalIncidentsBar({
             const theValue = c.data.datasets[item.datasetIndex].data.reduce((a, b) => a + b, 0);
             const valueText = document.createTextNode(`${parseInt(theValue)} - ${parseFloat(theValue / max * 100).toFixed(2)}%`);
             const labelText = document.createTextNode(item.text);
-            console.log("ITEM TEXT: ", labelText);
             value.appendChild(valueText);
             label.appendChild(labelText);
             ul.appendChild(li);
@@ -142,4 +141,4 @@ function TotalIncidentsBar({
   );
 }
 
-export default TotalIncidentsBar;
+export default HorizontalPercStack;

@@ -29,6 +29,9 @@ function HeaderBar(props) {
                     <a href="/dashboard" class="inline-block my-4 mx-2 align-center text-white rounded hover:no-underline">
                         Dashboard
                     </a>
+                    <a href="/file-upload" class="inline-block my-4 mx-2 align-center text-white rounded hover:no-underline">
+                        Upload File
+                    </a>
                     <a href="/" onClick={handleLogOut} class="inline-block my-4 mx-2 align-center text-white hover:no-underline">
                         Logout
                     </a>

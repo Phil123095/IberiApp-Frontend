@@ -1,19 +1,18 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 import {
-  Chart, LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip,
+  Chart, BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend,
 } from 'chart.js';
 import 'chartjs-adapter-moment';
 
-import {tailwindConfig} from '../../../utils/tw_utils';
-
 // Import utilities
-/*import { tailwindConfig, formatValue } from '../utils/Utils';*/
 
-Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip);
 
-function LineChart01({
+Chart.register(BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend);
+
+function BarChartStack({
   data,
+  granularity,
   width,
   height
 }) {
@@ -24,43 +23,59 @@ function LineChart01({
     const ctx = canvas.current;
     // eslint-disable-next-line no-unused-vars
     const chart = new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       data: data,
       options: {
-        chartArea: {
-          backgroundColor: tailwindConfig().theme.colors.slate[50],
-        },
         layout: {
-          padding: 20,
+          padding: {
+            top: 12,
+            bottom: 16,
+            left: 20,
+            right: 20,
+          },
         },
         scales: {
           y: {
-            display: true,
+            stacked: true,
+            grid: {
+              drawBorder: false,
+            },
             beginAtZero: true,
           },
           x: {
+            stacked: true,
             type: 'time',
             time: {
               parser: 'DD-MM-YYYY',
-              unit: 'day',
+              unit: granularity,
+              displayFormats: {
+                day: "MMM DD",
+                week: "MMM DD",
+                month: "MMMM YY",
+              }
             },
-            display: true,
+            grid: {
+              display: false,
+              drawBorder: false,
+            },
           },
         },
         plugins: {
+          legend: {
+            display: false,
+          },
           tooltip: {
             callbacks: {
               title: () => false, // Disable tooltip title
-              /*label: (context) => formatValue(context.parsed.y),*/
             },
-          },
-          legend: {
-            display: false,
           },
         },
         interaction: {
           intersect: false,
           mode: 'nearest',
+        },
+        animation: {
+          duration: 200,
         },
         maintainAspectRatio: false,
         resizeDelay: 200,
@@ -75,4 +90,4 @@ function LineChart01({
   );
 }
 
-export default LineChart01;
+export default BarChartStack;

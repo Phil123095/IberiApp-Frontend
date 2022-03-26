@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 
 import {
-  Chart, BarController, BarElement, LinearScale, LogarithmicScale, TimeScale, CategoryScale, Tooltip, Legend
+  Chart, BarController, BarElement, LinearScale,  CategoryScale, Tooltip, Legend
 } from 'chart.js';
 
 import 'chartjs-adapter-moment';
@@ -9,13 +9,10 @@ import 'chartjs-adapter-moment';
 // Import utilities
 /*import {formatValue} from '../../utils/tw_utils';*/
 
-Chart.register(BarController, BarElement, LinearScale, LogarithmicScale, TimeScale, CategoryScale, Tooltip, Legend);
+Chart.register(BarController, BarElement, LinearScale, CategoryScale, Tooltip, Legend);
 
-function BarChart01({
+function HorizontalPercStack({
   data,
-  x_scale_type,
-  y_scale_type,
-  stacked_ind,
   width,
   height
 }) {
@@ -32,14 +29,16 @@ function BarChart01({
         options: {
             scales: {
               y: {
-                type: 'logarithmic',
+                stacked: true,
+                max: 100,
+                min: 0,
                 grid: {
                   display: false,
                   drawBorder: false,
                 },
               },
               x: {
-                type: 'category',
+                stacked: true,
                 grid: {
                   display: false,
                   drawBorder: false,
@@ -63,4 +62,4 @@ function BarChart01({
   );
 }
 
-export default BarChart01;
+export default HorizontalPercStack;

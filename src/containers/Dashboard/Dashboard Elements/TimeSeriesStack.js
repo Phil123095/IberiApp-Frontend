@@ -1,69 +1,68 @@
 import React from 'react';
 /*import Info from '../../utils/Info';*/
-import BarChartStack from '../Dashboard Graphs/BarStack01';
-import {tailwindConfig} from '../../../utils/tw_utils';
+import BarChartStack from '../Dashboard Graphs/CHART_TSBarStack';
+import { formatPriorityCodes, return_color, color_picker } from '../../../utils/general_utils.js';
 
 
-function StackBarGeneral(props) {
-  const timeseries_data = props.TS_data; 
-  console.log("TS DATA HERE");
-  console.log(timeseries_data);
+function TimeSeriesStackGeneral(props) {
+  const prios_Indicator = props.prio_bool;
 
-  const time_labels = timeseries_data.clean_date;
-  delete timeseries_data['clean_date'];
+  function prepare_data(in_data) {
+    const time_labels = in_data.clean_date;
+    delete in_data['clean_date'];
 
-  const color_picker = (index) => {
-    const colors = {}
-    if (index <= 7) {
-      const bg_shade = 200 + (100 * index)
-      colors.bg_color = tailwindConfig().theme.colors.indigo[bg_shade]
-      colors.hv_bg_color = tailwindConfig().theme.colors.indigo[bg_shade + 100]
-    }
-    else if (index > 7 && index <= 15) {
-      const bg_shade = 200 + (100 * (index-7))
-      colors.bg_color = tailwindConfig().theme.colors.blue[bg_shade]
-      colors.hv_bg_color = tailwindConfig().theme.colors.blue[bg_shade + 100]
-    }
-    else {
-      colors.bg_color = tailwindConfig().theme.colors.purple[600]
-      colors.hv_bg_color = tailwindConfig().theme.colors.purple[700]
-    }
+    const data_set = Object.entries(in_data).map(([key, value], index) => {
+      if (prios_Indicator === true) {
+        const colors_out = return_color(key)
+        const prio_code_clean = formatPriorityCodes(key)
+        return(
+        {
+          label: prio_code_clean.format_code,
+          data: value,
+          backgroundColor: colors_out.bg_color,
+          hoverBackgroundColor: colors_out.hv_bg_color,
+          barPercentage: 0.9,
+          categoryPercentage: 0.66,
+          order: prio_code_clean.order,
+        }
+            
+        );
+      } else {
+        const colors_out = color_picker(index)
+        return(
+          {
+            label: key,
+            data: value,
+            backgroundColor: colors_out.bg_color,
+            hoverBackgroundColor: colors_out.hv_bg_color,
+            barPercentage: 0.8,
+            categoryPercentage: 1,
+          }
+        );
 
-    return colors
-  
+      }
+    })
+
+    const chartData = {
+      labels: time_labels,
+      datasets: data_set,
+    };
+
+    return chartData
   }
 
-  const data_set = Object.entries(timeseries_data).map(([key, value], index) => {
-    const colors_out = color_picker(index)
-    return(
-    {
-      label: key,
-      data: value,
-      backgroundColor: colors_out.bg_color,
-      hoverBackgroundColor: colors_out.hv_bg_color,
-      barPercentage: 0.8,
-      categoryPercentage: 1,
-    }
-        
-    );
-  })
-
-  const chartData = {
-    labels: time_labels,
-    datasets: data_set,
-  };
+  const final_data = prepare_data(props.TS_data)
 
   return (
     <div>
       <header className="px-3 py-2 flex items-center">
-        <h2 className="text-sm font-semibold text-slate-400 uppercase">Raised by Cause Over Time</h2>
+        <h2 className="text-sm font-semibold text-slate-400 uppercase">{props.title}</h2>
       </header>
       <div className="grow">
-        {/* Change the height attribute to adjust the chart height */}
-        <BarChartStack data={chartData} width={400} height={300} />
+        <BarChartStack data={final_data} granularity={props.granularity} width={400} height={300} />
       </div>
     </div>
   );
 }
 
-export default StackBarGeneral;
+export default TimeSeriesStackGeneral;

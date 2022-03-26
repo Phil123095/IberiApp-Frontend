@@ -1,7 +1,7 @@
-import BarChartPercStack from '../Dashboard Graphs/BarChartPercStack.js';
+import BarChartPercStack from '../Dashboard Graphs/CHART_SLAPercStack.js';
 
 // Import utilities
-import { tailwindConfig } from '../../../utils/tw_utils.js';
+import { tailwindConfig } from '../../../utils/general_utils.js';
 
 function BarChartSLAPerc(props) {
     const mttr_perc = props.mttr_data_perc

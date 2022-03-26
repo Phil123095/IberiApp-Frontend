@@ -1,7 +1,7 @@
-import BarChart01 from '../Dashboard Graphs/BarChartComponent.js';
 
 // Import utilities
-import { tailwindConfig } from '../../../utils/tw_utils.js';
+import { tailwindConfig } from '../../../utils/general_utils.js';
+import MTTRBarChart from '../Dashboard Graphs/CHART_BarMTTR.js';
 
 function BarChartMTTR(props) {
     const mttr_data = props.mttr_data
@@ -39,7 +39,7 @@ function BarChartMTTR(props) {
       {/* Chart built with Chart.js 3 */}
       {/* Change the height attribute to adjust the chart height */}
       <div class="grow mt-4">
-        <BarChart01 data={chartData} width={595} height={248}/>
+        <MTTRBarChart data={chartData} width={595} height={248}/>
       </div>
     </div>
   );
