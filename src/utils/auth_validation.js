@@ -11,6 +11,7 @@ export function useErrorChecker(inputForm, validate_type) {
         const { email, confirmEmail, password, confirmPassword} = inputForm
 
         // name errors
+        if ( !email.includes('ie.edu') || !email.includes('iberia.es')) errorsFound.email = 'You are not authorized to register'
         if ( !email || email === '' ) errorsFound.email = 'Email cannot be blank!'
 
         if ( !confirmEmail || confirmEmail === '' ) errorsFound.confirmEmail = 'Please confirm your email'

@@ -166,8 +166,8 @@ function RegisterUser() {
         <div class="flex flex-row bg-slate-100 items-center justify-center">
             <div class="basis-1/4 h-120 p-9 border-1 border-slate-200 rounded bg-white shadow-sm my-40">
                 <div class="py-2">
-                    {goToConfirm === null ? <h2 class="font-weight-bold text-xl">Create New Account</h2>: <h2 class="font-weight-bold text-xl">Verify your Email</h2>}
-                    {registerSuccess === null ? <p></p> : <p>{APIresult}, please try again</p>}
+                    {goToConfirm === null ? <h2 class="font-weight-bold text-xl text-center">Create New Account</h2>: <h2 class="font-weight-bold text-xl">Verify your Email</h2>}
+                    {registerSuccess === null ? <p></p> : <p>{APIresult}</p>}
                 </div>
                 {goToConfirm === null ? renderSignup() : renderConfirmation()}
             </div>
