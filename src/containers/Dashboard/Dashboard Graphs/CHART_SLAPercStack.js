@@ -6,9 +6,6 @@ import {
 
 import 'chartjs-adapter-moment';
 
-// Import utilities
-/*import {formatValue} from '../../utils/tw_utils';*/
-
 Chart.register(BarController, BarElement, LinearScale, CategoryScale, Tooltip, Legend);
 
 function HorizontalPercStack({

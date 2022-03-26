@@ -1,14 +1,14 @@
 import { useRef, useEffect } from 'react';
 
 import {
-  Chart, BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend,
+  Chart, BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend, LogarithmicScale,
 } from 'chart.js';
 import 'chartjs-adapter-moment';
 
 // Import utilities
 
 
-Chart.register(BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend);
+Chart.register(BarController, BarElement, LinearScale, TimeScale, LogarithmicScale, Tooltip, Legend);
 
 function BarChartStack({
   data,

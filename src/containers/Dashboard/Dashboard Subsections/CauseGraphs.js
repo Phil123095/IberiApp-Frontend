@@ -8,6 +8,7 @@ function RootCauseSection(props) {
     const APIdata_raised_TS = props.total_raised_TS;
     const title_prop = props.viz_title;
     const granularity = props.granularity;
+    console.log(props.total_raised_data);
     return (
         <>
             <div class="bg-white p-3 rounded col-span-4 border-slate-200 shadow-sm">
@@ -17,7 +18,7 @@ function RootCauseSection(props) {
                 <TableIncidentsPrio total_raised_data={APIdata_total_raised} heading={"Total Incidents Raised by " + title_prop} col_title={title_prop + " Name"}/>
             </div>
             <div class="bg-white p-3 rounded col-span-12 border-slate-200 shadow-sm">
-                <TimeSeriesStackGeneral prio_bool={false} TS_data={APIdata_raised_TS} granularity={granularity} title={"Total Incidents Raised by " + title_prop + " over time"}/>
+                <TimeSeriesStackGeneral prio_bool={false} TS_data={APIdata_raised_TS} totals={APIdata_total_raised} granularity={granularity} title={"Total Incidents Raised by " + title_prop + " over time"}/>
             </div>
         </>
 
