@@ -65,12 +65,11 @@ function RegisterUser() {
         .then(response => response.data.message)
         .then(response => {
             if (response === "user_created_successfully"){
-                console.log(APIresult)
+
                 setIsLoading(false)
                 setConfirm(true)
             } else {
                 setResponse(response)
-                console.log(APIresult)
                 setIsLoading(false)
                 setWrongLogin(true)
             }

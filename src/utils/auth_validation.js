@@ -20,7 +20,7 @@ export function useErrorChecker(inputForm, validate_type) {
         if ( !password || password === '' ) errorsFound.password = 'Password cannot be blank!'
 
         if ( !confirmPassword || confirmPassword === '' ) errorsFound.confirmPassword = 'Please confirm your password'
-        console.log(password, confirmPassword)
+
         if ( password !== confirmPassword) errorsFound.confirmPassword = 'Passwords must match'
     }
 

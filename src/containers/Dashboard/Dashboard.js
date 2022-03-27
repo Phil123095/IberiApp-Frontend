@@ -11,6 +11,7 @@ function FinalDashboard(props) {
     const [granularity, setGranularity] = useState('day');
     const token = props.token
     const setToken = props.setToken
+    const removeToken = props.removeToken
 
     useEffect(() => {
         axios({
@@ -42,7 +43,6 @@ function FinalDashboard(props) {
     }, [APIdata])
 
     const getDataFromAPI = (inputs) => {
-        console.log(inputs)
         const {minDate, maxDate, selectedGroup, selectedGranularity} = inputs
         setIsLoading(true)
         setGranularity(selectedGranularity);
@@ -64,13 +64,15 @@ function FinalDashboard(props) {
             if (result.access_token) {
                 setToken(result.access_token)
             }
+            else if (result.msg === "Token has expired"){
+                removeToken();
+            }
             setAPIData(result)
         })
 
     }
 
     function return_loaded() {
-        console.log(APIdata);
         return (
             <div class="h-full grid grid-cols-12 grid-rows-6 gap-4 px-3">
                 <ExecSummSection granularity={granularity} summary_data={APIdata.summary_data} raised_TS_prio={APIdata.raised_TS_prio}/>

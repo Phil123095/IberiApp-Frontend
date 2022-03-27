@@ -40,7 +40,7 @@ function LogIn(props) {
     }
 
     function verify(respdata) {
-        console.log(respdata.user_exist, respdata.password_correct, respdata.access_token)
+        
         if (respdata.access_token) {
 
             setIsLoading(false);

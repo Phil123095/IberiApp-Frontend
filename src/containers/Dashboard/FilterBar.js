@@ -40,7 +40,6 @@ function FilterBar(props) {
 
 
     const handleSubmit = (event) => {
-        console.log(selectedDate)
         const minDate = selectedDate.length === 0 ? '2021-01-01' : selectedDate.reduce((acc,date)=>{return acc&&new Date(acc)<new Date(date)?acc:date},'');
         const maxDate = selectedDate.length === 0 ? '2021-04-01' : selectedDate.reduce((acc,date)=>{return acc&&new Date(acc)>new Date(date)?acc:date},'');
         props.getDataFromAPI({minDate, maxDate, selectedGroup, selectedGranularity})

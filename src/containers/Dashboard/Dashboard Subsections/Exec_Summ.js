@@ -5,8 +5,6 @@ import SummaryHorizontalBar from '../Dashboard Elements/SummaryHorizontalPerc';
 function ExecSummSection(props) {
     const summary_data = props.summary_data;
     const raised_TS_prio = props.raised_TS_prio;
-    console.log("AT EXEC")
-    console.log(raised_TS_prio)
     const granularity = props.granularity
     return (
         <>

@@ -31,7 +31,7 @@ function Router() {
       <Routes>
         <Route path="/login" element={<LogIn setToken={setToken}/>}/>
         <Route path="/signup" element={<RegisterUser />}/>
-        <Route path="/dashboard" element={<FinalDashboard token={token} setToken={setToken}/>}/>
+        <Route path="/dashboard" element={<FinalDashboard token={token} setToken={setToken} removeToken={removeToken}/>}/>
         <Route path="/file-upload" element={<Uploadfile />}/>
         <Route exact path="/" element={<LandingPage />}/>
         <Route path="*" element={<NotFound/>}/>

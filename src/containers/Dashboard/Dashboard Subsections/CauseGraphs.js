@@ -8,7 +8,7 @@ function RootCauseSection(props) {
     const APIdata_raised_TS = props.total_raised_TS;
     const title_prop = props.viz_title;
     const granularity = props.granularity;
-    console.log(props.total_raised_data);
+
     return (
         <>
             <div class="bg-white p-3 rounded col-span-4 border-slate-200 shadow-sm">
