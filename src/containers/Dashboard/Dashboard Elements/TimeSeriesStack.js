@@ -6,8 +6,6 @@ import { formatPriorityCodes, return_color, color_picker } from '../../../utils/
 
 function TimeSeriesStackGeneral(props) {
   const prios_Indicator = props.prio_bool;
-  console.log("AT TS START")
-  console.log(props.TS_data)
 
   function set_ordering(totals) {
     let ordering = {};
@@ -18,16 +16,12 @@ function TimeSeriesStackGeneral(props) {
         const name = element.name
         ordering[name] = index + 1
       })
-      console.log("ORDER")
-      console.log(ordering)
       return ordering;
     }
     return ordering;
   }
 
   function prepare_data(in_data, order_to_use) {
-    console.log("DATA IN")
-    console.log(in_data);
     const time_labels = in_data.clean_date;
     delete in_data['clean_date'];
 
@@ -50,6 +44,8 @@ function TimeSeriesStackGeneral(props) {
       } else {
         const colors_out = color_picker(index)
         const order = order_to_use.key
+        console.log("ORDER")
+        console.log(order);
         return(
           {
             label: key,
@@ -73,7 +69,6 @@ function TimeSeriesStackGeneral(props) {
     return chartData
   }
 
-  /*const TS_data = props.TS_data*/
   const totals = props.totals
 
   const order_to_use = set_ordering(totals)
@@ -93,3 +88,7 @@ function TimeSeriesStackGeneral(props) {
 }
 
 export default TimeSeriesStackGeneral;
+
+
+
+
