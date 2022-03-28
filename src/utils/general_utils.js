@@ -64,13 +64,13 @@ export const return_color = (key) => {
   }
 
   else if (key === "P3_raised") {
-      colors.bg_color = tailwindConfig().theme.colors.indigo[400]
-      colors.hv_bg_color = tailwindConfig().theme.colors.indigo[500]
+      colors.bg_color = tailwindConfig().theme.colors.indigo[500]
+      colors.hv_bg_color = tailwindConfig().theme.colors.indigo[600]
   }
 
   else if (key === "P4_raised") {
-      colors.bg_color = tailwindConfig().theme.colors.slate[200]
-      colors.hv_bg_color = tailwindConfig().theme.colors.slate[300]
+      colors.bg_color = tailwindConfig().theme.colors.indigo[200]
+      colors.hv_bg_color = tailwindConfig().theme.colors.indigo[300]
   }
 
   return colors

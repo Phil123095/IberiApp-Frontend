@@ -42,10 +42,8 @@ function TimeSeriesStackGeneral(props) {
             
         );
       } else {
-        const colors_out = color_picker(index)
-        const order = order_to_use.key
-        console.log("ORDER")
-        console.log(order);
+        const order = order_to_use[key]
+        const colors_out = color_picker(order)
         return(
           {
             label: key,
@@ -72,8 +70,8 @@ function TimeSeriesStackGeneral(props) {
   const totals = props.totals
 
   const order_to_use = set_ordering(totals)
-  console.log(order_to_use)
-  const final_data = prepare_data(props.TS_data, order_to_use)
+  const TS_data = props.TS_data
+  const final_data = prepare_data(TS_data, order_to_use)
 
   return (
     <div>
