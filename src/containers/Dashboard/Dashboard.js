@@ -34,7 +34,14 @@ function FinalDashboard(props) {
             }
             setAPIData(result)
         })
-    }, [token, setToken])
+        .catch(error => {
+            if (error.response) {
+              if (error.response.data.msg === "Token has expired" || error.response.data.msg === "Signature verification failed") {
+                removeToken();
+                };
+            }
+        })
+    }, [token, setToken, removeToken])
 
     useEffect(() => {
         if (APIdata !== null){
@@ -64,10 +71,14 @@ function FinalDashboard(props) {
             if (result.access_token) {
                 setToken(result.access_token)
             }
-            else if (result.msg === "Token has expired"){
-                removeToken();
-            }
             setAPIData(result)
+        })
+        .catch(error => {
+            if (error.response) {
+              if (error.response.data.msg === "Token has expired" || error.response.data.msg === "Signature verification failed") {
+                removeToken();
+                };
+            }
         })
 
     }
