@@ -56,8 +56,8 @@ function LogIn(props) {
     return(
         <div class="flex flex-row bg-slate-100 items-center justify-center">
             <div class="basis-1/4 h-96 p-9 border-1 border-slate-200 rounded bg-white shadow-sm my-44">
-                <div class="pt-10 pb-2">
-                    <h2 class="font-weight-bold text-xl text-center">Log In</h2>
+                <div class="pt-6 pb-3">
+                    <h2 class="font-weight-bold text-2xl text-center">Log In</h2>
                     <p>{errorMessage}</p>
                 </div>
                 <Form class="pb-10">
