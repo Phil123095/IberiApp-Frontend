@@ -14,8 +14,7 @@
   - Dashboard Sections -> Subsections containing different graph wrapping components.
   - Dashboard Elements -> Graph "Wrapping" components: Essentially prep the data to labels + data series before passing it on to the Graphs.
   - Dashboard Graphs -> Pretty self-explanatory :). I use Chart.js
-
-### Footer_Header (I think that's pretty clear)
+  - Footer_Header (I think that's pretty clear)
 
 ### Frontpages:
   - All other types of pages: Landing Page, Login Page, Register Page, and File Upload Page (uploads files to an S3 bucket)
